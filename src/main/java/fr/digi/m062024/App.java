@@ -1,5 +1,6 @@
 package fr.digi.m062024;
 
+
 import fr.digi.m062024.bo.Banque;
 import jakarta.persistence.*;
 

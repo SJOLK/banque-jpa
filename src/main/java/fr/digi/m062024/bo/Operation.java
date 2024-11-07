@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+
 @Entity
 @Table(name = "operation")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

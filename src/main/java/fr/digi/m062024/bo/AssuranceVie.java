@@ -40,6 +40,7 @@ public class AssuranceVie extends Compte {
         return taux;
     }
 
+
     /**
      * Setter
      *

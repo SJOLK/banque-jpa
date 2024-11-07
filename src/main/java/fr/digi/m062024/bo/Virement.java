@@ -17,6 +17,7 @@ public class Virement extends Operation {
         return beneficiaire;
     }
 
+
     /**
      * Setter
      *
