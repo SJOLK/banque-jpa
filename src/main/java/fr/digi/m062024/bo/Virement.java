@@ -2,11 +2,20 @@ package fr.digi.m062024.bo;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @DiscriminatorValue("VIREMENT")
 public class Virement extends Operation {
     @Column(name = "beneficiaire")
     private String beneficiaire;
+
+    public Virement(){
+    }
+    public Virement(LocalDateTime date, double montant, String motif, Compte compte,String beneficiaire){
+        super(date, montant, motif, compte);
+        this.beneficiaire = beneficiaire;
+    }
 
     /**
      * Getter
