@@ -3,20 +3,20 @@ package fr.digi.m062024.bo;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "compte")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type_compte")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Compte implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "NUM", length = 10)
+    @Column(name = "NUM", length = 10, unique = true, nullable = false)
     private String numero;
     @Column(name = "SOLDE")
     private double solde;
@@ -26,9 +26,18 @@ public class Compte implements Serializable {
     @OneToMany(mappedBy = "compte")
     private Set<Operation> operations;
 
+    {
+        clients = new HashSet<>();
+        operations = new HashSet<>();
+    }
+
     public Compte() {
     }
 
+    public Compte(String numero, double solde) {
+        this.numero = numero;
+        this.solde = solde;
+    }
 
     public Integer getId() {
         return id;
@@ -70,6 +79,18 @@ public class Compte implements Serializable {
         this.operations = operations;
     }
 
+    public void ajouterClient(Client client) {
+        if (client != null) {
+            client.ajouterCompte(this);
+        }
+    }
+
+    public void retirerClient(Client client) {
+        if (client != null) {
+            client.retirerCompte(this);
+        }
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Compte{");
@@ -92,6 +113,4 @@ public class Compte implements Serializable {
     public int hashCode() {
         return Objects.hashCode(numero);
     }
-
-
 }

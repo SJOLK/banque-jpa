@@ -1,57 +1,51 @@
 package fr.digi.m062024.bo;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
 @Entity
-@DiscriminatorValue("ASSURANCE_VIE")
+@Table(name = "assurance_vie")
 public class AssuranceVie extends Compte {
-    @Column(name = "date_fin")
-    private LocalDate dateFin;
 
-    @Column(name = "taux")
+    @Column(name = "DATE_FIN", nullable = false)
+    private LocalDate date;
+    @Column(name = "TX")
     private double taux;
 
-    /**
-     * Getter
-     *
-     * @return dateFin
-     */
-    public LocalDate getDateFin() {
-        return dateFin;
+    public AssuranceVie() {
     }
 
-    /**
-     * Setter
-     *
-     * @param dateFin dateFin
-     */
-    public void setDateFin(LocalDate dateFin) {
-        this.dateFin = dateFin;
+    public AssuranceVie(String numero, double solde, LocalDate date, double taux) {
+        super(numero, solde);
+        this.date = date;
+        this.taux = taux;
     }
 
-    /**
-     * Getter
-     *
-     * @return taux
-     */
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public double getTaux() {
         return taux;
     }
 
-
-    /**
-     * Setter
-     *
-     * @param taux taux
-     */
     public void setTaux(double taux) {
         this.taux = taux;
     }
 
-    public AssuranceVie(LocalDate dateFin, double taux) {
-        this.dateFin = dateFin;
-        this.taux = taux;
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("AssuranceVie{");
+        sb.append("date=").append(date);
+        sb.append(", taux=").append(taux);
+        sb.append('}');
+        return sb.toString();
     }
 }
